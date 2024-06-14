@@ -14,21 +14,22 @@
         android:theme="@style/Theme.AndroidCurriculum"
         tools:targetApi="31">
         <activity
-            android:name=".RegisterActivity"
+            android:name=".Activity.BeginActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".Activity.RegisterActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".Activity.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".SplashActivity"
+            android:name=".Activity.SplashActivity"
             android:exported="true"
             android:theme="@style/SplashTheme"
             tools:ignore="DuplicateActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

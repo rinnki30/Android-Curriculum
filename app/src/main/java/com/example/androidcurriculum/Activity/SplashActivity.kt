@@ -1,4 +1,4 @@
-package com.example.androidcurriculum
+package com.example.androidcurriculum.Activity
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -8,6 +8,7 @@ import android.os.Looper
 import android.view.animation.AlphaAnimation
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
+import com.example.androidcurriculum.R
 
 @SuppressLint("CustomSplashScreen")
 class SplashActivity : AppCompatActivity() {
@@ -27,8 +28,8 @@ class SplashActivity : AppCompatActivity() {
 
         Handler(Looper.getMainLooper()).postDelayed({
             // 动画结束后跳转到主活动
-            val mainIntent = Intent(this, MainActivity::class.java)
-            startActivity(mainIntent)
+            val beginIntent = Intent(this, BeginActivity::class.java)
+            startActivity(beginIntent)
             finish()
         }, SPLASH_DISPLAY_LENGTH.toLong())
     }
