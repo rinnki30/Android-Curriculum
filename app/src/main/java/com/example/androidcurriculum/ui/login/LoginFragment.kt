@@ -7,13 +7,14 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.example.androidcurriculum.Activity.ArticleActivity
 import com.example.androidcurriculum.Activity.RegisterActivity
+import com.example.androidcurriculum.MyApplication
 import com.example.androidcurriculum.R
 import com.example.androidcurriculum.databinding.FragmentLoginBinding
 
@@ -22,8 +23,7 @@ class LoginFragment : Fragment() {
     private lateinit var loginViewModel: LoginViewModel
     private var _binding: FragmentLoginBinding? = null
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
+    //这个是FragmentLoginBinding的实例，通过它可以访问到fragment_login.xml中的所有控件
     private val binding get() = _binding!!
 
 
@@ -31,7 +31,7 @@ class LoginFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
         return binding.root
 
@@ -39,8 +39,10 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        loginViewModel = ViewModelProvider(this, LoginViewModelFactory())
-            .get(LoginViewModel::class.java)
+        loginViewModel = ViewModelProvider(
+            this,
+            LoginViewModelFactory()
+        ).get(LoginViewModel::class.java)
 
         val usernameEditText = binding.username
         val passwordEditText = binding.password
@@ -71,6 +73,9 @@ class LoginFragment : Fragment() {
                 }
                 loginResult.success?.let {
                     updateUiWithUser(it)
+                    //如果注册成功跳转到文章页面
+                    val intent = Intent(requireContext(), ArticleActivity::class.java)
+                    startActivity(intent)
                 }
             })
 
@@ -92,15 +97,6 @@ class LoginFragment : Fragment() {
         }
         usernameEditText.addTextChangedListener(afterTextChangedListener)
         passwordEditText.addTextChangedListener(afterTextChangedListener)
-        passwordEditText.setOnEditorActionListener { _, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_DONE) {
-                loginViewModel.login(
-                    usernameEditText.text.toString(),
-                    passwordEditText.text.toString()
-                )
-            }
-            false
-        }
 
         loginButton.setOnClickListener {
             loadingProgressBar.visibility = View.VISIBLE
@@ -108,25 +104,24 @@ class LoginFragment : Fragment() {
                 usernameEditText.text.toString(),
                 passwordEditText.text.toString()
             )
+
         }
 
         register.setOnClickListener {
             // 跳转到注册页面
             val intent = Intent(requireContext(), RegisterActivity::class.java)
             startActivity(intent)
+
         }
     }
 
     private fun updateUiWithUser(model: LoggedInUserView) {
-        val welcome = getString(R.string.welcome) + model.displayName
-        // TODO : initiate successful logged in experience
-        val appContext = context?.applicationContext ?: return
-        Toast.makeText(appContext, welcome, Toast.LENGTH_LONG).show()
+        val welcome = getString(R.string.welcome) + model.username
+        Toast.makeText(MyApplication.context, welcome, Toast.LENGTH_LONG).show()
     }
 
     private fun showLoginFailed(@StringRes errorString: Int) {
-        val appContext = context?.applicationContext ?: return
-        Toast.makeText(appContext, errorString, Toast.LENGTH_LONG).show()
+        Toast.makeText(MyApplication.context, errorString, Toast.LENGTH_LONG).show()
     }
 
     override fun onDestroyView() {

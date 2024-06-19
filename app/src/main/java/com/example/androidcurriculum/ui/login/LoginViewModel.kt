@@ -16,18 +16,21 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
     private val _loginResult = MutableLiveData<LoginResult>()
     val loginResult: LiveData<LoginResult> = _loginResult
 
+    //这是登录的函数
     fun login(username: String, password: String) {
-        // can be launched in a separate asynchronous job
+        //查询数据库验证登录
         val result = loginRepository.login(username, password)
 
         if (result is Result.Success) {
             _loginResult.value =
-                LoginResult(success = LoggedInUserView(displayName = result.data.displayName))
+                LoginResult(success = LoggedInUserView(username = result.data.username))
+
         } else {
             _loginResult.value = LoginResult(error = R.string.login_failed)
         }
     }
 
+    //登录数据改变
     fun loginDataChanged(username: String, password: String) {
         if (!isUserNameValid(username)) {
             _loginForm.value = LoginFormState(usernameError = R.string.invalid_username)
@@ -38,7 +41,7 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
         }
     }
 
-    // A placeholder username validation check
+    //用户名的验证
     private fun isUserNameValid(username: String): Boolean {
         return if (username.contains("@")) {
             Patterns.EMAIL_ADDRESS.matcher(username).matches()
@@ -47,8 +50,9 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
         }
     }
 
-    // A placeholder password validation check
+    //密码的验证
     private fun isPasswordValid(password: String): Boolean {
         return password.length > 5
     }
+
 }

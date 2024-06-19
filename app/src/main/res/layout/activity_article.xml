@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.RegisterActivity">
+    tools:context=".Activity.ArticleActivity">
 
     <include layout="@layout/toolbar_layout" />
 
     <fragment
-        android:id="@+id/registerFrag"
-        android:name="com.example.androidcurriculum.ui.register.RegisterFragment"
+        android:id="@+id/articleFrag"
+        android:name="com.example.androidcurriculum.ui.article.ArticleFragment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginTop="56dp"
-        tools:ignore="Instantiatable"
-        tools:layout="@layout/fragment_login" />
+        tools:layout="@layout/fragment_article" />
 </RelativeLayout>

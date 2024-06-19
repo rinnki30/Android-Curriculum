@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
-import com.example.androidcurriculum.Activity.ImageSliderAdapter
+import com.example.androidcurriculum.Adapter.ImageSliderAdapter
 import com.example.androidcurriculum.R
 import java.util.Random
 
@@ -39,7 +39,6 @@ class ViewPagerFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Initialize viewPager here instead of onCreate
         viewPager = view.findViewById(R.id.viewPager)
         adapter = ImageSliderAdapter(imageResIds)
         viewPager.adapter = adapter
