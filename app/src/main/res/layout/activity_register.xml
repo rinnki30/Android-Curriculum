@@ -5,37 +5,14 @@
     android:layout_height="match_parent"
     tools:context=".Activity.RegisterActivity">
 
-    <EditText
-        android:id="@+id/etUsername"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:layout_marginTop="80dp"
-        android:hint="Username" />
+    <include layout="@layout/toolbar_layout" />
 
-    <EditText
-        android:id="@+id/etPassword"
+    <fragment
+        android:id="@+id/registerFrag"
+        android:name="com.example.androidcurriculum.ui.register.RegisterFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/etUsername"
-        android:layout_margin="16dp"
-        android:hint="Password"
-        android:inputType="textPassword" />
-
-    <EditText
-        android:id="@+id/etConfirmPassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/etPassword"
-        android:layout_margin="16dp"
-        android:hint="Confirm Password"
-        android:inputType="textPassword" />
-
-    <Button
-        android:id="@+id/btnRegister"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/etConfirmPassword"
-        android:layout_margin="16dp"
-        android:text="Register" />
+        android:layout_marginTop="56dp"
+        tools:ignore="Instantiatable"
+        tools:layout="@layout/fragment_login" />
 </RelativeLayout>

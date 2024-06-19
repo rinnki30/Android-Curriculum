@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.androidcurriculum.Activity.RegisterActivity
+import com.example.androidcurriculum.MyApplication
 import com.example.androidcurriculum.R
 import com.example.androidcurriculum.databinding.FragmentLoginBinding
 
@@ -22,8 +23,7 @@ class LoginFragment : Fragment() {
     private lateinit var loginViewModel: LoginViewModel
     private var _binding: FragmentLoginBinding? = null
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
+    //这个是FragmentLoginBinding的实例，通过它可以访问到fragment_login.xml中的所有控件
     private val binding get() = _binding!!
 
 
@@ -39,8 +39,10 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        loginViewModel = ViewModelProvider(this, LoginViewModelFactory())
-            .get(LoginViewModel::class.java)
+        loginViewModel = ViewModelProvider(
+            this,
+            LoginViewModelFactory()
+        ).get(LoginViewModel::class.java)
 
         val usernameEditText = binding.username
         val passwordEditText = binding.password
@@ -92,6 +94,7 @@ class LoginFragment : Fragment() {
         }
         usernameEditText.addTextChangedListener(afterTextChangedListener)
         passwordEditText.addTextChangedListener(afterTextChangedListener)
+        //监听软键盘的回车键
         passwordEditText.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 loginViewModel.login(
@@ -118,15 +121,12 @@ class LoginFragment : Fragment() {
     }
 
     private fun updateUiWithUser(model: LoggedInUserView) {
-        val welcome = getString(R.string.welcome) + model.displayName
-        // TODO : initiate successful logged in experience
-        val appContext = context?.applicationContext ?: return
-        Toast.makeText(appContext, welcome, Toast.LENGTH_LONG).show()
+        val welcome = getString(R.string.welcome) + model.username
+        Toast.makeText(MyApplication.context, welcome, Toast.LENGTH_LONG).show()
     }
 
     private fun showLoginFailed(@StringRes errorString: Int) {
-        val appContext = context?.applicationContext ?: return
-        Toast.makeText(appContext, errorString, Toast.LENGTH_LONG).show()
+        Toast.makeText(MyApplication.context, errorString, Toast.LENGTH_LONG).show()
     }
 
     override fun onDestroyView() {

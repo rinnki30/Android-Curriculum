@@ -39,7 +39,6 @@ class ViewPagerFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Initialize viewPager here instead of onCreate
         viewPager = view.findViewById(R.id.viewPager)
         adapter = ImageSliderAdapter(imageResIds)
         viewPager.adapter = adapter

@@ -10,6 +10,7 @@ import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.androidcurriculum.R
 
+//开始界面
 @SuppressLint("CustomSplashScreen")
 class SplashActivity : AppCompatActivity() {
 

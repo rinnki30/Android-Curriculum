@@ -5,10 +5,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.androidcurriculum.data.LoginDataSource
 import com.example.androidcurriculum.data.LoginRepository
 
-/**
- * ViewModel provider factory to instantiate LoginViewModel.
- * Required given LoginViewModel has a non-empty constructor
- */
 class LoginViewModelFactory : ViewModelProvider.Factory {
 
     @Suppress("UNCHECKED_CAST")
